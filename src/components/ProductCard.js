@@ -5,7 +5,7 @@ import {
     Image,
     StyleSheet,
     Text,
-    TouchableOpacity,
+    TouchableOpacity, 
     View,
 } from 'react-native';
  
