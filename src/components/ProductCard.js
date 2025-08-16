@@ -12,7 +12,7 @@ import {
 const { width } = Dimensions.get('window');
 const cardWidth = (width - 60) / 2; // 60 = horizontal padding + gap
 
-const ProductCard = ({
+const ProductCard = ({ 
   product,
   onPress,
   onFavoritePress,
