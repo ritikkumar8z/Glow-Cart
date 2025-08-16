@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 const CustomInput = ({
-  value,
+  value, 
   onChangeText,
   placeholder,
   label,
