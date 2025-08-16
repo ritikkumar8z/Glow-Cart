@@ -5,7 +5,7 @@ const BASE_URL = 'https://dummyjson.com';
 // Create axios instance
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 10000, 
   headers: {
     'Content-Type': 'application/json',  
   },
