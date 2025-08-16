@@ -14,7 +14,7 @@ const cardWidth = (width - 60) / 2; // 60 = horizontal padding + gap
 
 const ProductCard = ({ 
   product,
-  onPress,
+  onPress, 
   onFavoritePress,
   style,
 }) => {
