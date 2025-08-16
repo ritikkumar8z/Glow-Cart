@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-
+ 
 const CustomInput = ({
   value, 
   onChangeText,
