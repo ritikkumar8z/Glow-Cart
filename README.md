@@ -1,50 +1,211 @@
-# Welcome to your Expo app 👋
+# GlowCart - Beauty E-commerce App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A beautiful cosmetic e-commerce mobile application built with React Native Expo, featuring a modern UI design and seamless user experience.
 
-## Get started
+## 🌟 Features
 
-1. Install dependencies
+- **Onboarding Screen** - Welcome screen with app introduction
+- **Authentication** - Login and Register screens with form validation
+- **Product Catalog** - Browse cosmetic products fetched from API
+- **Search & Filter** - Real-time product search functionality
+- **Product Details** - Detailed product view with images, ratings, and reviews
+- **User Profile** - Profile management with various options
+- **Shopping Cart** - Add products to cart functionality
+- **Responsive Design** - Works seamlessly on various screen sizes
 
-   ```bash
-   npm install
-   ```
+## 📱 Screens
 
-2. Start the app
+1. **Onboarding Screen** - App introduction and get started button
+2. **Login Screen** - Email/password login with social login options
+3. **Register Screen** - Account creation with validation
+4. **Home Screen** - Product listing with search functionality
+5. **Product Details Screen** - Detailed product information
+6. **Profile Screen** - User profile and app settings
 
-   ```bash
-   npx expo start
-   ```
+## 🛠 Technical Stack
 
-In the output, you'll find options to open the app in a
+- **React Native Expo** - Cross-platform mobile development
+- **React Navigation** - Screen navigation and routing
+- **Context API** - State management for authentication and products
+- **Axios** - HTTP client for API calls
+- **Expo Vector Icons** - Beautiful icons throughout the app
+- **Custom Components** - Reusable UI components
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🚀 Getting Started
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Prerequisites
 
-## Get a fresh project
+- Node.js (v16 or later)
+- npm or yarn
+- Expo CLI
+- Expo Go app on your mobile device
 
-When you're ready, run:
+### Installation
 
+1. Clone the repository:
 ```bash
-npm run reset-project
+git clone <your-repository-url>
+cd glowcart
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-## Learn more
+3. Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+4. Open the Expo Go app on your phone and scan the QR code, or run on an emulator:
+```bash
+# For Android emulator
+npm run android
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+# For iOS simulator
+npm run ios
+```
 
-## Join the community
+## 🔧 Project Structure
 
-Join our community of developers creating universal apps.
+```
+glowcart/
+├── src/
+│   ├── components/          # Reusable UI components
+│   │   ├── CustomButton.js
+│   │   ├── CustomInput.js
+│   │   ├── Header.js
+│   │   ├── ProductCard.js
+│   │   └── SearchBar.js
+│   ├── screens/            # App screens
+│   │   ├── OnboardingScreen.js
+│   │   ├── LoginScreen.js
+│   │   ├── RegisterScreen.js
+│   │   ├── HomeScreen.js
+│   │   ├── ProductDetailsScreen.js
+│   │   └── ProfileScreen.js
+│   ├── navigation/         # Navigation configuration
+│   │   └── MainTabNavigator.js
+│   ├── services/          # API services
+│   │   └── api.js
+│   └── store/             # State management
+│       ├── AuthContext.js
+│       └── ProductContext.js
+├── App.js                 # Main app component
+├── package.json
+├── app.json              # Expo configuration
+├── eas.json             # EAS Build configuration
+└── README.md
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🌐 API Integration
+
+The app uses [DummyJSON](https://dummyjson.com/products) API to fetch product data. The products are filtered to show only cosmetic-related items based on:
+
+- Product title keywords (mascara, lipstick, perfume, etc.)
+- Description content
+- Category classification
+
+## 🎨 UI/UX Design
+
+- **Color Scheme**: Pink theme (#FF69B4) for a beauty-focused aesthetic
+- **Typography**: Clean, modern fonts with proper hierarchy
+- **Components**: Custom reusable components for consistency
+- **Animations**: Smooth transitions and interactive elements
+- **Responsive**: Optimized for various screen sizes
+
+## 📱 Building for Production
+
+### Using EAS Build
+
+1. Install EAS CLI:
+```bash
+npm install -g eas-cli
+```
+
+2. Login to your Expo account:
+```bash
+eas login
+```
+
+3. Configure your project:
+```bash
+eas build:configure
+```
+
+4. Build for Android (APK):
+```bash
+eas build --platform android --profile preview
+```
+
+5. Build for iOS:
+```bash
+eas build --platform ios --profile preview
+```
+
+6. For production builds:
+```bash
+eas build --platform all --profile production
+```
+
+## 🔍 Testing
+
+1. **Manual Testing**: Test all screens and user flows
+2. **Device Testing**: Test on various devices and screen sizes
+3. **API Testing**: Verify API calls and error handling
+4. **Performance**: Check loading times and smooth animations
+
+## ⚡ Performance Optimizations
+
+- **FlatList** for efficient product rendering
+- **Image optimization** with error handling
+- **Lazy loading** for better performance
+- **Memoization** of expensive operations
+- **Optimized re-renders** with proper state management
+
+## 📋 Known Issues & Assumptions
+
+- Mock authentication (no real backend integration)
+- Mock user data in profile screen
+- Limited product filtering (based on available API data)
+- Social login buttons are UI-only (not functional)
+- Reviews and ratings are mocked data
+
+## 🚀 Future Enhancements
+
+- Real authentication backend
+- Payment integration
+- Order management
+- Push notifications
+- Wishlist functionality
+- Advanced filtering and sorting
+- Dark theme support
+- Offline support
+
+## 📞 Support
+
+For any issues or questions, please contact:
+- Email: support@glowcart.com
+- GitHub Issues: [Create an issue](your-repo-url/issues)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👏 Acknowledgments
+
+- [DummyJSON API](https://dummyjson.com/) for providing product data
+- [Expo](https://expo.dev/) for the amazing development platform
+- [React Navigation](https://reactnavigation.org/) for navigation solutions
+- [Expo Vector Icons](https://icons.expo.fyi/) for beautiful icons
+
+---
+
+**Development Time**: Approximately 8-10 hours
+
+**Note**: This is a demonstration project built for educational purposes. All product data is sourced from DummyJSON API and user authentication is mocked for development purposes.
