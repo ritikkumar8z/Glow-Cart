@@ -1,20 +1,20 @@
-import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import {
-    Alert,
-    Dimensions,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native';
-import CustomButton from '../components/CustomButton';
-import { useProducts } from '../store/ProductContext';
+  Alert,
+  Dimensions,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import CustomButton from "../components/CustomButton";
+import { useProducts } from "../store/ProductContext";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const ProductDetailsScreen = ({ route, navigation }) => {
   const { product } = route.params;
@@ -24,37 +24,38 @@ const ProductDetailsScreen = ({ route, navigation }) => {
   const mockReviews = [
     {
       id: 1,
-      name: 'Sarah M.',
+      name: "Sarah M.",
       rating: 5,
-      comment: 'Amazing product! Highly recommended.',
-      date: '2 days ago'
+      comment: "Amazing product! Highly recommended.",
+      date: "2 days ago",
     },
     {
       id: 2,
-      name: 'Emily R.',
+      name: "Emily R.",
       rating: 4,
-      comment: 'Good quality and fast delivery.',
-      date: '1 week ago'
+      comment: "Good quality and fast delivery.",
+      date: "1 week ago",
     },
     {
       id: 3,
-      name: 'Jessica L.',
+      name: "Jessica L.",
       rating: 5,
-      comment: 'Love it! Will definitely buy again.',
-      date: '2 weeks ago'
-    }
+      comment: "Love it! Will definitely buy again.",
+      date: "2 weeks ago",
+    },
   ];
 
-  const productImages = product.images && product.images.length > 0 
-    ? product.images 
-    : [product.thumbnail];
+  const productImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.thumbnail];
 
   const handleAddToBag = () => {
     addToCart(product);
     Alert.alert(
-      'Added to Bag',
+      "Added to Bag",
       `${product.title} has been added to your bag!`,
-      [{ text: 'OK' }]
+      [{ text: "OK" }]
     );
   };
 
@@ -64,9 +65,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
     const hasHalfStar = rating % 1 !== 0;
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <Ionicons key={i} name="star" size={16} color="#FFD700" />
-      );
+      stars.push(<Ionicons key={i} name="star" size={16} color="#FFD700" />);
     }
 
     if (hasHalfStar) {
@@ -78,7 +77,12 @@ const ProductDetailsScreen = ({ route, navigation }) => {
     const emptyStars = 5 - Math.ceil(rating);
     for (let i = 0; i < emptyStars; i++) {
       stars.push(
-        <Ionicons key={`empty-${i}`} name="star-outline" size={16} color="#FFD700" />
+        <Ionicons
+          key={`empty-${i}`}
+          name="star-outline"
+          size={16}
+          color="#FFD700"
+        />
       );
     }
 
@@ -89,9 +93,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
     <View key={review.id} style={styles.reviewItem}>
       <View style={styles.reviewHeader}>
         <Text style={styles.reviewName}>{review.name}</Text>
-        <View style={styles.reviewRating}>
-          {renderStars(review.rating)}
-        </View>
+        <View style={styles.reviewRating}>{renderStars(review.rating)}</View>
         <Text style={styles.reviewDate}>{review.date}</Text>
       </View>
       <Text style={styles.reviewComment}>{review.comment}</Text>
@@ -129,7 +131,9 @@ const ProductDetailsScreen = ({ route, navigation }) => {
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={(event) => {
-              const index = Math.round(event.nativeEvent.contentOffset.x / width);
+              const index = Math.round(
+                event.nativeEvent.contentOffset.x / width
+              );
               setCurrentImageIndex(index);
             }}
           >
@@ -142,7 +146,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
               />
             ))}
           </ScrollView>
-          
+
           {/* Image Indicators */}
           {productImages.length > 1 && (
             <View style={styles.imageIndicators}>
@@ -151,7 +155,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
                   key={index}
                   style={[
                     styles.indicator,
-                    currentImageIndex === index && styles.activeIndicator
+                    currentImageIndex === index && styles.activeIndicator,
                   ]}
                 />
               ))}
@@ -162,8 +166,8 @@ const ProductDetailsScreen = ({ route, navigation }) => {
         {/* Product Info */}
         <View style={styles.productInfo}>
           <Text style={styles.productTitle}>{product.title}</Text>
-          <Text style={styles.productBrand}>{product.brand || 'GlowCart'}</Text>
-          
+          <Text style={styles.productBrand}>{product.brand || "GlowCart"}</Text>
+
           {/* Rating and Price */}
           <View style={styles.ratingPriceContainer}>
             <View style={styles.ratingContainer}>
@@ -182,12 +186,24 @@ const ProductDetailsScreen = ({ route, navigation }) => {
           {/* Highlights */}
           <Text style={styles.sectionTitle}>Product Highlights</Text>
           <View style={styles.highlightsContainer}>
-            {renderHighlight('Dimensions', product.dimensions ? 
-              `${product.dimensions.width} × ${product.dimensions.height} × ${product.dimensions.depth} cm` : 
-              '15 × 10 × 5 cm')}
-            {renderHighlight('Warranty', product.warrantyInformation || '1 Year Warranty')}
-            {renderHighlight('Shipping', product.shippingInformation || 'Free shipping on orders over $50')}
-            {renderHighlight('Return Policy', product.returnPolicy || '30-day return policy')}
+            {renderHighlight(
+              "Dimensions",
+              product.dimensions
+                ? `${product.dimensions.width} × ${product.dimensions.height} × ${product.dimensions.depth} cm`
+                : "15 × 10 × 5 cm"
+            )}
+            {renderHighlight(
+              "Warranty",
+              product.warrantyInformation || "1 Year Warranty"
+            )}
+            {renderHighlight(
+              "Shipping",
+              product.shippingInformation || "Free shipping on orders over $50"
+            )}
+            {renderHighlight(
+              "Return Policy",
+              product.returnPolicy || "30-day return policy"
+            )}
           </View>
 
           {/* Reviews */}
@@ -214,24 +230,24 @@ const ProductDetailsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    borderBottomColor: "#F0F0F0",
   },
   backButton: {
     padding: 5,
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#333333',
+    fontWeight: "600",
+    color: "#333333",
   },
   favoriteButton: {
     padding: 5,
@@ -240,150 +256,152 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imageContainer: {
-    position: 'relative',
+    position: "relative",
   },
   productImage: {
     width: width,
     height: 300,
+    backgroundColor: "#FAFAFA", // or your theme color
+    alignSelf: "center",
   },
   imageIndicators: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
     left: 0,
     right: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   indicator: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
     marginHorizontal: 4,
   },
   activeIndicator: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   productInfo: {
     padding: 20,
   },
   productTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333333',
+    fontWeight: "bold",
+    color: "#333333",
     marginBottom: 5,
   },
   productBrand: {
     fontSize: 16,
-    color: '#FF69B4',
-    fontWeight: '600',
+    color: "#FF69B4",
+    fontWeight: "600",
     marginBottom: 15,
   },
   ratingPriceContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 20,
   },
   ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   ratingText: {
     marginLeft: 8,
     fontSize: 14,
-    color: '#666666',
+    color: "#666666",
   },
   price: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FF69B4',
+    fontWeight: "bold",
+    color: "#FF69B4",
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333333',
+    fontWeight: "bold",
+    color: "#333333",
     marginTop: 20,
     marginBottom: 10,
   },
   description: {
     fontSize: 14,
-    color: '#666666',
+    color: "#666666",
     lineHeight: 20,
   },
   highlightsContainer: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: "#F8F8F8",
     borderRadius: 10,
     padding: 15,
   },
   highlightItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: "#E0E0E0",
   },
   highlightTitle: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333333',
+    fontWeight: "600",
+    color: "#333333",
     flex: 1,
   },
   highlightValue: {
     fontSize: 14,
-    color: '#666666',
+    color: "#666666",
     flex: 2,
-    textAlign: 'right',
+    textAlign: "right",
   },
   reviewsContainer: {
     marginTop: 10,
   },
   reviewItem: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: "#F8F8F8",
     borderRadius: 10,
     padding: 15,
     marginBottom: 10,
   },
   reviewHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 8,
   },
   reviewName: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#333333',
+    fontWeight: "600",
+    color: "#333333",
     marginRight: 10,
   },
   reviewRating: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginRight: 10,
   },
   reviewDate: {
     fontSize: 12,
-    color: '#999999',
-    marginLeft: 'auto',
+    color: "#999999",
+    marginLeft: "auto",
   },
   reviewComment: {
     fontSize: 14,
-    color: '#666666',
+    color: "#666666",
     lineHeight: 18,
   },
   footer: {
     padding: 20,
     borderTopWidth: 1,
-    borderTopColor: '#F0F0F0',
+    borderTopColor: "#F0F0F0",
   },
   addToBagButton: {
-    backgroundColor: '#FF69B4',
+    backgroundColor: "#FF69B4",
     borderRadius: 25,
     paddingVertical: 16,
   },
   addToBagText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#FFFFFF',
+    fontWeight: "600",
+    color: "#FFFFFF",
   },
 });
 

@@ -1,24 +1,24 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native';
-import CustomButton from '../components/CustomButton';
-import CustomInput from '../components/CustomInput';
-import { useAuth } from '../store/AuthContext';
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import CustomButton from "../components/CustomButton";
+import CustomInput from "../components/CustomInput";
+import { useAuth } from "../store/AuthContext";
 
 const RegisterScreen = ({ navigation }) => {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -27,25 +27,21 @@ const RegisterScreen = ({ navigation }) => {
 
   const validateInputs = () => {
     if (!fullName.trim()) {
-      Alert.alert('Error', 'Please enter your full name');
+      Alert.alert("Error", "Please enter your full name");
       return false;
     }
-
-    if (!email || !email.includes('@')) {
-      Alert.alert('Error', 'Please enter a valid email address');
+    if (!email || !email.includes("@")) {
+      Alert.alert("Error", "Please enter a valid email address");
       return false;
     }
-
     if (password.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters long');
+      Alert.alert("Error", "Password must be at least 6 characters long");
       return false;
     }
-
     if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert("Error", "Passwords do not match");
       return false;
     }
-
     return true;
   };
 
@@ -55,13 +51,13 @@ const RegisterScreen = ({ navigation }) => {
     try {
       setLoading(true);
       await register(fullName, email, password);
-      Alert.alert(
-        'Success',
-        'Account created successfully!',
-        [{ text: 'OK', onPress: () => navigation.navigate('Main') }]
-      );
+      Alert.alert("Success", "Account created successfully!");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Main" }], // ✅ Product/Home page pe bhejega
+      });
     } catch (error) {
-      Alert.alert('Registration Failed', error.message || 'Please try again');
+      Alert.alert("Registration Failed", error.message || "Please try again");
     } finally {
       setLoading(false);
     }
@@ -70,18 +66,22 @@ const RegisterScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
       >
-        <ScrollView 
+        <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled" // 👈 Input blur fix
         >
           {/* Header */}
           <View style={styles.header}>
             <Text style={styles.title}>Create Account</Text>
-            <Text style={styles.subtitle}>Join us to start your beauty journey</Text>
+            <Text style={styles.subtitle}>
+              Join us to start your beauty journey
+            </Text>
           </View>
 
           {/* Form */}
@@ -92,6 +92,8 @@ const RegisterScreen = ({ navigation }) => {
               onChangeText={setFullName}
               leftIcon="person-outline"
               autoCapitalize="words"
+              returnKeyType="next"
+              blurOnSubmit={false} // 👈 Fix focus
             />
 
             <CustomInput
@@ -101,6 +103,8 @@ const RegisterScreen = ({ navigation }) => {
               keyboardType="email-address"
               autoCapitalize="none"
               leftIcon="mail-outline"
+              returnKeyType="next"
+              blurOnSubmit={false}
             />
 
             <CustomInput
@@ -111,6 +115,8 @@ const RegisterScreen = ({ navigation }) => {
               leftIcon="lock-closed-outline"
               rightIcon={showPassword ? "eye-off-outline" : "eye-outline"}
               onRightIconPress={() => setShowPassword(!showPassword)}
+              returnKeyType="next"
+              blurOnSubmit={false}
             />
 
             <CustomInput
@@ -119,8 +125,13 @@ const RegisterScreen = ({ navigation }) => {
               onChangeText={setConfirmPassword}
               secureTextEntry={!showConfirmPassword}
               leftIcon="lock-closed-outline"
-              rightIcon={showConfirmPassword ? "eye-off-outline" : "eye-outline"}
-              onRightIconPress={() => setShowConfirmPassword(!showConfirmPassword)}
+              rightIcon={
+                showConfirmPassword ? "eye-off-outline" : "eye-outline"
+              }
+              onRightIconPress={() =>
+                setShowConfirmPassword(!showConfirmPassword)
+              }
+              returnKeyType="done"
             />
 
             <CustomButton
@@ -134,9 +145,8 @@ const RegisterScreen = ({ navigation }) => {
           {/* Terms and Conditions */}
           <View style={styles.termsContainer}>
             <Text style={styles.termsText}>
-              By creating an account, you agree to our{' '}
-              <Text style={styles.termsLink}>Terms & Conditions</Text>
-              {' '}and{' '}
+              By creating an account, you agree to our{" "}
+              <Text style={styles.termsLink}>Terms & Conditions</Text> and{" "}
               <Text style={styles.termsLink}>Privacy Policy</Text>
             </Text>
           </View>
@@ -144,7 +154,7 @@ const RegisterScreen = ({ navigation }) => {
           {/* Login Link */}
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Already have an account? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={styles.loginLink}>Login</Text>
             </TouchableOpacity>
           </View>
@@ -157,7 +167,7 @@ const RegisterScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   scrollView: {
     flex: 1,
@@ -169,55 +179,55 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 40,
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333333',
+    fontWeight: "bold",
+    color: "#333333",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666666',
-    textAlign: 'center',
+    color: "#666666",
+    textAlign: "center",
   },
   form: {
     marginBottom: 30,
   },
   registerButton: {
-    backgroundColor: '#FF69B4',
+    backgroundColor: "#FF69B4",
     marginTop: 20,
   },
   termsContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 30,
     paddingHorizontal: 20,
   },
   termsText: {
     fontSize: 12,
-    color: '#666666',
-    textAlign: 'center',
+    color: "#666666",
+    textAlign: "center",
     lineHeight: 18,
   },
   termsLink: {
-    color: '#FF69B4',
-    fontWeight: '600',
+    color: "#FF69B4",
+    fontWeight: "600",
   },
   loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   loginText: {
     fontSize: 14,
-    color: '#666666',
+    color: "#666666",
   },
   loginLink: {
     fontSize: 14,
-    color: '#FF69B4',
-    fontWeight: '600',
+    color: "#FF69B4",
+    fontWeight: "600",
   },
 });
 
