@@ -6,7 +6,7 @@ import { ProductProvider } from '../src/store/ProductContext';
 
 // Import screens
 import MainTabNavigator from '../src/navigation/MainTabNavigator'; 
-import LoginScreen from '../src/screens/LoginScreen';
+import LoginScreen from '../src/screens/LoginScreen'; 
 import OnboardingScreen from '../src/screens/OnboardingScreen';
 import RegisterScreen from '../src/screens/RegisterScreen';
 
